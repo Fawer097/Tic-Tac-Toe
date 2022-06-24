@@ -5,6 +5,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
-  <body></body>
+  <body>
+    <div class="container">
+      <section class="start-screen" id="start-screen">
+        <h1>Tic Tac Toe</h1>
+        <a href="#" id="start-game-btn">Start game</a>
+      </section>
+      <section class="game-board-screen" id="game-board-screen">
+        <div class="selection">
+          <h3>
+            <span id="selection-title">Выберите первый ход:</span>
+          </h3>
+          <div class="btn-and-circle">
+            <button class="selection-btn" id="zero">
+              <img src="./images/zero.png" alt="zero" />
+            </button>
+            <div class="circle"></div>
+          </div>
+          <div class="btn-and-circle">
+            <button class="selection-btn" id="cross">
+              <img src="./images/cross.png" alt="cross" id="cross" />
+            </button>
+            <div class="circle"></div>
+          </div>
+        </div>
+        <div class="game-board" id="game-board"></div>
+      </section>
+      <section class="game-over" id="game-over">
+        <h2>Game over!</h2>
+        <span id="winner-name" class="winner-name"></span>
+        <a href="#" class="reset" id="reset">Try again</a>
+      </section>
+    </div>
+    <script type="module" src="index.js"></script>
+  </body>
 </html>
