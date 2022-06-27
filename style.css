@@ -1,11 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,300&display=swap');
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Patrick Hand', cursive;
+  font-family: 'Merriweather', serif;
 }
 
 body {
@@ -18,6 +17,7 @@ body {
   background-color: rgba(205, 133, 63, 0.9);
   overflow: hidden;
   position: relative;
+  display: flex;
 }
 
 .start-screen {
@@ -30,24 +30,69 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-}
-
-h1 {
-  font-size: 70px;
-  color: black;
+  padding: 20px;
 }
 
 .start-screen a {
   text-decoration: none;
-  font-size: 42px;
   margin-top: 30px;
   cursor: pointer;
+  font-size: 50px;
   color: black;
 }
 
 .start-screen a:hover {
-  opacity: 0.5;
-  transition: 0.2s;
+  opacity: 0.6;
+  transform: scale(1.1);
+  transition: 0.5s;
+}
+
+.select-board-size-screen {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 150vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.select-board-size-screen h2 {
+  font-size: 26px;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.select-board-size-screen select {
+  min-width: 200px;
+  width: 30%;
+  height: 40px;
+  font-size: 20px;
+  border: 1px solid black;
+  border-radius: 50px;
+  padding: 0px 15px;
+  background-color: rgba(205, 133, 63, 0);
+  cursor: pointer;
+  appearance: none;
+}
+
+.select-board-size-screen a {
+  text-decoration: none;
+  margin-top: 40px;
+  cursor: pointer;
+  font-size: 50px;
+  color: black;
+  opacity: 0.8;
+  text-align: center;
+}
+
+.select-board-size-screen a:hover {
+  opacity: 1;
+  transform: scale(1.2);
+  transition: 0.5s;
 }
 
 .game-board-screen {
@@ -55,7 +100,7 @@ h1 {
   height: 100vh;
   position: absolute;
   top: 0;
-  left: 200vw;
+  left: 150vw;
   display: flex;
   align-items: center;
 }
@@ -119,7 +164,7 @@ h1 {
 .btn-and-circle {
   display: flex;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 20%;
   margin-left: 10px;
 }
 
@@ -141,11 +186,12 @@ h1 {
   height: 100vh;
   position: absolute;
   top: 0;
-  left: 200vh;
+  left: 150vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 20px;
 }
 
 .game-over h2 {
@@ -182,4 +228,25 @@ h1 {
   top: 0;
   left: 0;
   transition: 0.5s;
+}
+
+@media (max-width: 1000px) {
+  .game-board {
+    width: 50vw;
+    height: 50vw;
+  }
+}
+
+@media (max-width: 700px) {
+  .game-board {
+    width: 60vw;
+    height: 60vw;
+  }
+}
+
+@media (max-width: 500px) {
+  .game-board {
+    width: 70vw;
+    height: 70vw;
+  }
 }

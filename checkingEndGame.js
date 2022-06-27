@@ -1,7 +1,8 @@
 export function checkingEndGame(
   arr,
+  cell,
   cells,
-  boardSize,
+  type,
   gameBoardScreen,
   gameOverScreen
 ) {
@@ -9,39 +10,24 @@ export function checkingEndGame(
 
   checkingDraw(cells, gameBoardScreen, gameOverScreen);
 
-  for (let i in arr) {
-    const arrayZero = arr[i].filter((arr) => arr == 'zero');
-    const arrayCross = arr[i].filter((arr) => arr == 'cross');
-
-    if (arrayZero.length == boardSize || arrayCross.length == boardSize) {
-      winner = `${arr[i][i].toUpperCase()} WON!!!`;
-      setTimeout(
-        () => showGameOverScreen(winner, gameBoardScreen, gameOverScreen),
-        300
-      );
-    }
-  }
-
-  for (let i in arr) {
-    const arrayZero = arr.filter((arr) => arr[i] == 'zero');
-    const arrayCross = arr.filter((arr) => arr[i] == 'cross');
-
-    if (arrayZero.length == boardSize || arrayCross.length == boardSize) {
-      winner = `${arr[i][i].toUpperCase()} WON!!!`;
-      setTimeout(
-        () => showGameOverScreen(winner, gameBoardScreen, gameOverScreen),
-        300
-      );
-    }
-  }
+  const row = Number(cell.getAttribute('row'));
+  const col = Number(cell.getAttribute('col'));
 
   if (
-    (arr[0][2] == 'zero' && arr[1][1] == 'zero' && arr[2][0] == 'zero') ||
-    (arr[0][2] == 'cross' && arr[1][1] == 'cross' && arr[2][0] == 'cross') ||
-    (arr[0][0] == 'zero' && arr[1][1] == 'zero' && arr[2][2] == 'zero') ||
-    (arr[0][0] == 'cross' && arr[1][1] == 'cross' && arr[2][2] === 'cross')
+    (arr[row][col + 1] == type && arr[row][col - 1] == type) ||
+    (arr[row][col + 1] == type && arr[row][col + 2] == type) ||
+    (arr[row][col - 1] == type && arr[row][col - 2] == type) ||
+    (arr[row + 1][col] == type && arr[row - 1][col] == type) ||
+    (arr[row + 1][col] == type && arr[row + 2][col] == type) ||
+    (arr[row - 1][col] == type && arr[row - 2][col] == type) ||
+    (arr[row - 1][col + 1] == type && arr[row + 1][col - 1] == type) ||
+    (arr[row - 1][col + 1] == type && arr[row - 2][col + 2] == type) ||
+    (arr[row + 1][col - 1] == type && arr[row + 2][col - 2] == type) ||
+    (arr[row - 1][col - 1] == type && arr[row + 1][col + 1] == type) ||
+    (arr[row - 1][col - 1] == type && arr[row - 2][col - 2] == type) ||
+    (arr[row + 1][col + 1] == type && arr[row + 2][col + 2] == type)
   ) {
-    winner = `${arr[1][1].toUpperCase()} WON!!!`;
+    winner = `${arr[row][col].toUpperCase()} WON!!!`;
     setTimeout(
       () => showGameOverScreen(winner, gameBoardScreen, gameOverScreen),
       300
@@ -52,9 +38,9 @@ export function checkingEndGame(
 function checkingDraw(cells, gameBoardScreen, gameOverScreen) {
   const cellsArray = [...cells];
 
-  const arr1 = cellsArray.filter((cell) => cell.innerHTML == '');
+  const filterArray = cellsArray.filter((cell) => !cell.innerHTML);
 
-  if (!arr1.length) {
+  if (filterArray.length == 0) {
     const winner = 'A DRAW!!!';
     setTimeout(
       () => showGameOverScreen(winner, gameBoardScreen, gameOverScreen),

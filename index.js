@@ -1,7 +1,12 @@
 import { checkingEndGame } from './checkingEndGame.js';
 
+const ticTacToeBtn = document.getElementById('tic-tac-toe-btn');
 const startGameBtn = document.getElementById('start-game-btn');
 const startScreen = document.getElementById('start-screen');
+const selectBoardSizeScreen = document.getElementById(
+  'select-board-size-screen'
+);
+const selectBoardSize = document.getElementById('select-board-size');
 const gameBoardScreen = document.getElementById('game-board-screen');
 const gameBoard = document.getElementById('game-board');
 const circles = document.querySelectorAll('.circle');
@@ -9,20 +14,35 @@ const gameOverScreen = document.getElementById('game-over');
 const typeSelectionBtn = document.querySelectorAll('.selection-btn');
 const reset = document.getElementById('reset');
 
-startGameBtn.addEventListener('click', () => {
+ticTacToeBtn.addEventListener('click', () => {
   startScreen.classList.add('hide-screen');
+  selectBoardSizeScreen.classList.add('show-screen');
+});
+
+startGameBtn.addEventListener('click', () => {
+  selectBoardSizeScreen.classList.remove('show-screen');
+  selectBoardSizeScreen.classList.add('hide-screen');
   gameBoardScreen.classList.add('show-screen');
+  createDimensionalArray(arr);
   game();
 });
 
-const boardSize = 3;
+let boardSize;
 
 const arr = new Array();
-for (let i = 0; i < boardSize; i++) {
-  arr[i] = new Array();
-  for (let j = 0; j < boardSize; j++) {
-    createGameBoard(boardSize, i, j);
+
+function createDimensionalArray(arr) {
+  boardSize = Number(selectBoardSize.value);
+  for (let i = 0; i < boardSize; i++) {
+    arr[i] = new Array();
+    for (let j = 0; j < boardSize; j++) {
+      createGameBoard(boardSize, i, j);
+    }
   }
+  arr[-1] = [];
+  arr[-2] = [];
+  arr[boardSize] = [];
+  arr[boardSize + 1] = [];
 }
 
 function createGameBoard(boardSize, i, j) {
@@ -35,14 +55,14 @@ function createGameBoard(boardSize, i, j) {
   gameBoard.style.gridTemplateRows = `repeat(${boardSize}, 1fr)`;
 }
 
-const cells = document.querySelectorAll('.cell');
-
 let type = undefined;
 
 function game() {
   typeSelectionBtn.forEach((btn, index) =>
     btn.addEventListener('click', () => typeSelection(btn, index))
   );
+
+  const cells = document.querySelectorAll('.cell');
 
   cells.forEach((cell) =>
     cell.addEventListener('click', () => {
@@ -51,15 +71,29 @@ function game() {
       } else if (type == 'zero' && !cell.innerHTML) {
         showImageInCell(cell, type);
         fillArray(cell, arr);
+        checkingEndGame(
+          arr,
+          cell,
+          cells,
+          type,
+          gameBoardScreen,
+          gameOverScreen
+        );
         type = 'cross';
         addActiveClass(1);
-        checkingEndGame(arr, cells, boardSize, gameBoardScreen, gameOverScreen);
       } else if (type == 'cross' && !cell.innerHTML) {
         showImageInCell(cell, type);
         fillArray(cell, arr);
+        checkingEndGame(
+          arr,
+          cell,
+          cells,
+          type,
+          gameBoardScreen,
+          gameOverScreen
+        );
         type = 'zero';
         addActiveClass(0);
-        checkingEndGame(arr, cells, boardSize, gameBoardScreen, gameOverScreen);
       }
     })
   );
@@ -91,8 +125,8 @@ function showImageInCell(cell, type) {
 
 function fillArray(cell, arr) {
   const nameAtribute = cell.getAttribute('type');
-  const row = cell.getAttribute('row');
-  const col = cell.getAttribute('col');
+  const row = Number(cell.getAttribute('row'));
+  const col = Number(cell.getAttribute('col'));
   arr[row][col] = nameAtribute;
 }
 
