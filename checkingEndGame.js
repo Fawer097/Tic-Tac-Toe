@@ -41,7 +41,7 @@ function checkingDraw(cells, gameBoardScreen, gameOverScreen) {
   const filterArray = cellsArray.filter((cell) => !cell.innerHTML);
 
   if (filterArray.length == 0) {
-    const winner = 'A DRAW!!!';
+    const winner = 'A DRAW!';
     setTimeout(
       () => showGameOverScreen(winner, gameBoardScreen, gameOverScreen),
       300

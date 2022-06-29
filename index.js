@@ -70,7 +70,7 @@ function game() {
         alert('Выберите крестик или нолик!');
       } else if (type == 'zero' && !cell.innerHTML) {
         showImageInCell(cell, type);
-        fillArray(cell, arr);
+        fillingArrayWithTypes(cell, arr);
         checkingEndGame(
           arr,
           cell,
@@ -83,7 +83,7 @@ function game() {
         addActiveClass(1);
       } else if (type == 'cross' && !cell.innerHTML) {
         showImageInCell(cell, type);
-        fillArray(cell, arr);
+        fillingArrayWithTypes(cell, arr);
         checkingEndGame(
           arr,
           cell,
@@ -102,7 +102,7 @@ function game() {
 function typeSelection(btn, index) {
   document.getElementById('selection-title').textContent = 'Текущий ход:';
   addActiveClass(index);
-  typeSelectionBtnDisable();
+  typeSelectionBtn.forEach((btn) => btn.setAttribute('disabled', 'true'));
   type = btn.id;
   return type;
 }
@@ -114,16 +114,12 @@ function addActiveClass(index) {
   circles[index].classList.add('active');
 }
 
-function typeSelectionBtnDisable() {
-  typeSelectionBtn.forEach((btn) => btn.setAttribute('disabled', 'true'));
-}
-
 function showImageInCell(cell, type) {
   cell.innerHTML = `<img src="./images/${type}.png" alt="${type}" />`;
   cell.setAttribute('type', `${type}`);
 }
 
-function fillArray(cell, arr) {
+function fillingArrayWithTypes(cell, arr) {
   const nameAtribute = cell.getAttribute('type');
   const row = Number(cell.getAttribute('row'));
   const col = Number(cell.getAttribute('col'));
